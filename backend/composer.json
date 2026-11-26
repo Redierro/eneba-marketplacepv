@@ -1,0 +1,23 @@
+{
+    "name": "eneba/marketplace",
+    "require": {
+        "php": "^8.3",
+        "slim/slim": "^4.15",
+        "slim/psr7": "^1.8",
+        "php-di/php-di": "^7.1",
+        "firebase/php-jwt": "^7.2",
+        "vlucas/phpdotenv": "^5.8"
+    },
+	"autoload": { 
+		"psr-4": { "App\\": "src/" } 
+	},
+	"config": {
+		"platform": { "php": "8.5.0" }
+	},
+    "authors": [
+        {
+            "name": "Redierro",
+            "email": "testas069@gmail.com"
+        }
+    ]
+}
