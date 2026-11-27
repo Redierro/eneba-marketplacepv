@@ -1,9 +1,8 @@
 # Eneba Marketplace
 
-Digital game key marketplace built for the Eneba internship assignment.
+Digital game key marketplace built for the Eneba assignment.
 
 **Live:** https://eneba-marketplacepv.vercel.app  
-**AI log:** see `ai-logs/` (full conversation link/export)
 
 ## Stack
 - Frontend: React + TypeScript, Vite, React Router, TanStack Query, Tailwind
