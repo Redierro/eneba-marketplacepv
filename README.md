@@ -2,7 +2,7 @@
 
 Digital game key marketplace built for the Eneba internship assignment.
 
-**Live:** https://YOUR-APP.vercel.app  
+**Live:** https://eneba-marketplacepv.vercel.app  
 **AI log:** see `ai-logs/` (full conversation link/export)
 
 ## Stack

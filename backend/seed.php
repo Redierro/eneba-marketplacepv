@@ -58,7 +58,7 @@ $genreNames    = ['Action', 'RPG', 'Shooter', 'Strategy', 'Adventure', 'Sports',
 $sellerNames   = ['KeyMaster', 'GameVault', 'PixelDeals', 'LootHouse', 'DigitalDragon', 'CheapKeys24', 'NordGames', 'BlueFox Store'];
 
 $pdo->beginTransaction();
-$pdo->exec('TRUNCATE users, platforms, regions, genres, products, sellers, offers, game_keys, carts, cart_items, orders, order_items, payments, banners, home_blocks RESTART IDENTITY CASCADE');
+$pdo->exec('TRUNCATE users, platforms, regions, genres, products, sellers, offers, game_keys, orders, order_items, payments, banners, home_blocks RESTART IDENTITY CASCADE');
 
 $platformIds = insertLookup($pdo, 'platforms', $platformNames);
 $regionIds   = insertLookup($pdo, 'regions', $regionNames);
@@ -74,7 +74,6 @@ foreach ($sellerNames as $n) {
 $insProduct = $pdo->prepare('INSERT INTO products (slug, name, description, image_url, platform_id, genre_id, release_date, base_price, sales_count)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id');
 $insOffer = $pdo->prepare('INSERT INTO offers (product_id, seller_id, region_id, price, old_price) VALUES (?, ?, ?, ?, ?) RETURNING id');
-$insKey   = $pdo->prepare('INSERT INTO game_keys (offer_id, key_value) VALUES (?, ?)');
 
 $n = 0;
 foreach ($titles as $ti => $title) {
@@ -90,14 +89,21 @@ foreach ($titles as $ti => $title) {
               . 'Compare offers from multiple sellers and pick the best price for your region.';
         $insProduct->execute([slugify($name), $name, $desc, cover($title, $n), $platformIds[$pi], $genreId, $date, $base, mt_rand(0, 5000)]);
         $productId = (int)$insProduct->fetchColumn();
-
+        echo '.';
+		
         $sellers = (array)array_rand($sellerIds, mt_rand(3, 6));
         foreach ($sellers as $si) {
             $price = round($base * mt_rand(60, 105) / 100, 2);
             $old = mt_rand(1, 100) <= 35 ? round($price * mt_rand(115, 160) / 100, 2) : null;
             $insOffer->execute([$productId, $sellerIds[$si], $regionIds[array_rand($regionIds)], $price, $old]);
             $offerId = (int)$insOffer->fetchColumn();
-            for ($k = 0, $kc = mt_rand(2, 12); $k < $kc; $k++) $insKey->execute([$offerId, keyString()]);
+            $vals = [];
+            $args = [];
+            for ($k = 0, $kc = mt_rand(2, 12); $k < $kc; $k++) {
+                $vals[] = '(?, ?)';
+                array_push($args, $offerId, keyString());
+            }
+            $pdo->prepare('INSERT INTO game_keys (offer_id, key_value) VALUES ' . implode(',', $vals))->execute($args);
         }
     }
 }
