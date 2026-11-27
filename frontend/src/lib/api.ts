@@ -1,10 +1,11 @@
 export class ApiError extends Error {
-  constructor(
-    public status: number,
-    message: string,
-    public fields?: Record<string, string>,
-  ) {
+  status: number
+  fields?: Record<string, string>
+
+  constructor(status: number, message: string, fields?: Record<string, string>) {
     super(message)
+    this.status = status
+    this.fields = fields
   }
 }
 
