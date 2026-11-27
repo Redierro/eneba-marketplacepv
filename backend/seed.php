@@ -111,7 +111,8 @@ $pdo->exec("INSERT INTO home_blocks (type, title, endpoint, position) VALUES
     ('banner', 'Featured', '/home/banners', 1),
     ('product_row', 'Best sellers', '/home/best-sellers', 2),
     ('product_row', 'Hot deals', '/home/deals', 3),
-    ('product_row', 'New releases', '/home/new-releases', 4)");
+    ('product_row', 'New releases', '/home/new-releases', 4),
+    ('category_grid', 'Categories', '/home/categories', 5)");
 
 $pdo->commit();
 echo "Seeded $n products\n";
