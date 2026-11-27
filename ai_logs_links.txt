@@ -1,1 +1,3 @@
-https://claude.ai/share/5bc6fa1d-837b-4318-9533-21bb30332879
+Main AI usage (Main system architecture, main system generation and flow choices) - https://claude.ai/share/5bc6fa1d-837b-4318-9533-21bb30332879
+
+Side AI usage (Smaller questions about difficulties to understand about certain topics of the assignment and choices of the Main AI) - https://share.gemini.google/UNyfoG5qKSUY
